@@ -462,7 +462,7 @@ canvas.addEventListener("touchmove", (event) =>{
 });
 
 const spriteSheet = new Image();
-spriteSheet.src = 'Spritesheet/Breakout_Tile_Free.png'
+spriteSheet.src = 'Breakout_Tile_Free.png'
 spriteSheet.onload = () => {
     drawBricks();
     drawElectricPaddle();
