@@ -9,12 +9,12 @@ let ballY = 550;
 let ballDX = 5;
 let ballDY = 5;
 const ballW = 20;
-const ballH = 20; 
+const ballH = 20;
 let previousTouchX = 0;
 const brick_W = 100;
 const brick_H = 50;
 let bricks = [];
-let brickCoords =    [
+let brickCoords = [
     {
         "name": "blue",
         "sx": "772",
@@ -445,18 +445,18 @@ let brickCoords =    [
     }
 ]
 
-document.addEventListener("keydown",(event) => {
-    if(event.key == "ArrowRight"){
-        paddleX +=10;
-    } else if (event.key == "ArrowLeft"){
-        paddleX -=10;
+document.addEventListener("keydown", (event) => {
+    if (event.key == "ArrowRight") {
+        paddleX += 10;
+    } else if (event.key == "ArrowLeft") {
+        paddleX -= 10;
     }
 })
-canvas.addEventListener("touchstart", (event) =>{
+canvas.addEventListener("touchstart", (event) => {
     previousTouchX = event.touches[0].clientX;
 });
 
-canvas.addEventListener("touchmove", (event) =>{
+canvas.addEventListener("touchmove", (event) => {
     paddleX += event.touches[0].clientX - previousTouchX;
     reviousTouchX = event.touches[0].clientX;
 });
@@ -466,48 +466,48 @@ spriteSheet.src = 'Breakout_Tile_Free.png'
 spriteSheet.onload = () => {
     drawBricks();
     drawElectricPaddle();
+}
+
+
+
+
+class Brick {
+    constructor(sx, sy, sw, sh, dx, dy, dw, dh, state) {
+        this.sx = Number(sx),
+        this.sy = Number(sy),
+        this.sw = Number(sw),
+        this.sh = Number(sh),
+        this.dx = dx,
+        this.dy = dy,
+        this.dw = dw,
+        this.dh = dh,
+        this.state = state
+    };
+};
+
+let brickNum = 20;
+//for (i = 11; i < (canvasWidth/brick_W)+11; i++){
+for (j = 0; j < 5; j++) {
+    for (i = 0; i < (canvasWidth / brick_W); i++) {
+        bricks.push(new Brick(brickCoords[0].sx, brickCoords[0].sy, brickCoords[0].sw, brickCoords[0].sh, 0 + i * 100, 0 + 50 * j, 100, 50, 'whole'));
     }
-    
+};
 
-
-    
-    class Brick {
-        constructor(sx, sy, sw, sh, dx, dy, dw, dh){
-            this.sx = sx,
-            this.sy = sy,
-            this.sw = sw,
-            this.sh = sh,
-            this.dx = dx,
-            this.dy = dy,
-            this.dw = dw,
-            this.dh = dh,
-            this.state = 'whole'
-        };
+function drawBricks() {
+    for (k = 0; k < bricks.length; k++) {
+        ctx.drawImage(spriteSheet, bricks[k].sx, bricks[k].sy, bricks[k].sw, bricks[k].sh, bricks[k].dx, bricks[k].dy, bricks[k].dw, bricks[k].dh);
     };
-    
-    let brickNum = 20;
-    //for (i = 11; i < (canvasWidth/brick_W)+11; i++){
-    for(j = 0; j < 5; j++){
-        for (i = 0; i < (canvasWidth/brick_W); i++){
-            bricks.push(new Brick(brickCoords[0].sx, brickCoords[0].sy, brickCoords[0].sw, brickCoords[0].sh, 0 + i * 100, 0 + 50 * j, 100, 50));
-        }
-    };
-    
-function drawBricks(){
-    for(k = 0; k < bricks.length; k++){    
-        ctx.drawImage(spriteSheet,bricks[k].sx, bricks[k].sy, bricks[k].sw, bricks[k].sh, bricks[k].dx, bricks[k].dy, bricks[k].dw, bricks[k].dh);
-        };
-    };
+};
 
 let lastTimeStamp = 0;
 let m = 49
-let dw = (brickCoords[m].sw/2000) * 1000;
-let sw = (brickCoords[m].sh/1500) * 600
-function drawElectricPaddle (){
-    ctx.drawImage(spriteSheet,brickCoords[m].sx, brickCoords[m].sy, brickCoords[m].sw, brickCoords[m].sh, paddleX, paddleY, dw, sw);
-    if(Date.now() - lastTimeStamp >= 100){
+let dw = (brickCoords[m].sw / 2000) * 1000;
+let sw = (brickCoords[m].sh / 1500) * 600
+function drawElectricPaddle() {
+    ctx.drawImage(spriteSheet, brickCoords[m].sx, brickCoords[m].sy, brickCoords[m].sw, brickCoords[m].sh, paddleX, paddleY, dw, sw);
+    if (Date.now() - lastTimeStamp >= 100) {
         lastTimeStamp = Date.now();
-        if(m == 51){
+        if (m == 51) {
             m = 49;
         } else {
             m++
@@ -515,41 +515,49 @@ function drawElectricPaddle (){
     };
 };
 
-function checkCollission(){
-    if (ballX + ballW >= canvasWidth || ballX <= 0){
+function checkCollission() {
+    if (ballX + ballW >= canvasWidth || ballX <= 0) {
         ballDX = -ballDX
     }
-    if (ballY + ballH >= canvasHeight || ballY <= 0){
+    if (ballY + ballH >= canvasHeight || ballY <= 0) {
         ballDY = -ballDY;
     }
-    if (ballX >= paddleX && ballX<= paddleX + 121) {
+    if (ballX >= paddleX && ballX <= paddleX + 121) {
         if (ballY + 20 >= paddleY)
             ballDY = -ballDY;
         ;
     };
-    bricks.forEach((brick) => {
-        if((ballX + ballW) >= brick.dx && ballX <= (brick.dx + brick.dw) && (ballY + ballH) >= brick.dy && ballX <= (brick.dy + brick.dh)) {
-                ballDY = -ballDY;
-        };    
-    });
+    for (let i = 0; i < bricks.length; i++) {
+        if ((ballX + ballW) >= bricks[i].dx && ballX <= (bricks[i].dx + bricks[i].dw) && (ballY + ballH) >= bricks[i].dy && ballY <= (bricks[i].dy + bricks[i].dh)) {
+            if (bricks[i].state === 'cracked') {
+                bricks.splice(i, 1)
+            } else {
+                const crackedBrick = new Brick(brickCoords[1].sx, brickCoords[1].sy, brickCoords[1].sw, brickCoords[1].sh, bricks[i].dx, bricks[i].dy, bricks[i].dw, bricks[i].dh, 'cracked');
+                bricks[i] = crackedBrick;
+                ctx.drawImage(spriteSheet, bricks[i].sx, bricks[i].sy, bricks[i].sw, bricks[i].sh, bricks[i].dx, bricks[i].dy, bricks[i].dw, bricks[i].dh);
+            }
+            ballDY = -ballDY;
+            break;
+        };
+    }
 }
 
-function drawBall (){
+function drawBall() {
     checkCollission();
     ballY += ballDY;
     ballX += ballDX;
-    let ball = brickCoords.filter(b => b.name ==  "ball")[0]
-    ctx.drawImage(spriteSheet,ball.sx, ball.sy, ball.sw, ball.sh, ballX, ballY, 20, 20);
+    let ball = brickCoords.filter(b => b.name == "ball")[0]
+    ctx.drawImage(spriteSheet, ball.sx, ball.sy, ball.sw, ball.sh, ballX, ballY, 20, 20);
 };
 
 
-function animate(){
-    ctx.clearRect(0,0,1200,600)
+function animate() {
+    ctx.clearRect(0, 0, 1200, 600)
     drawBricks();
     drawElectricPaddle();
     drawBall();
     requestAnimationFrame(animate)
 };
-    
+
 
 animate();
