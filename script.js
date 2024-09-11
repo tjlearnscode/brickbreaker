@@ -447,9 +447,9 @@ let brickCoords = [
 
 document.addEventListener("keydown", (event) => {
     if (event.key == "ArrowRight") {
-        paddleX += 10;
+        paddleX += 20;
     } else if (event.key == "ArrowLeft") {
-        paddleX -= 10;
+        paddleX -= 20;
     }
 })
 canvas.addEventListener("touchstart", (event) => {
@@ -528,7 +528,7 @@ function checkCollission() {
         ;
     };
     for (let i = 0; i < bricks.length; i++) {
-        if ((ballX + ballW) >= bricks[i].dx && ballX <= (bricks[i].dx + bricks[i].dw) && (ballY + ballH) >= bricks[i].dy && ballY <= (bricks[i].dy + bricks[i].dh)) {
+        if ((ballX + (ballW / 2)) >= bricks[i].dx && (ballX + (ballW/2)) <= (bricks[i].dx + bricks[i].dw) && (ballY + ballH) >= bricks[i].dy && ballY <= (bricks[i].dy + bricks[i].dh)) {
             if (bricks[i].state === 'cracked') {
                 bricks.splice(i, 1)
             } else {
