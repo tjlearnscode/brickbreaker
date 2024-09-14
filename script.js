@@ -1,9 +1,13 @@
+//updated code to show different colored bricks instead of just blue
+
 const canvas = document.getElementById('mycanvas');
 const ctx = canvas.getContext('2d');
 const canvasHeight = canvas.height = 600;
 const canvasWidth = canvas.width = 1200;
 let paddleX = 350;
 let paddleY = 550;
+let playerScore = 0;
+const paddleSpeed = 30;
 let ballX = 370;
 let ballY = 550;
 let ballDX = 5;
@@ -13,148 +17,191 @@ const ballH = 20;
 let previousTouchX = 0;
 const brick_W = 100;
 const brick_H = 50;
+let animateId;
 let bricks = [];
-let brickCoords = [
-    {
+let brickCoords = {
+    "blues": [
+        {
         "name": "blue",
+        "family": "blues",
         "sx": "772",
         "sy": "390",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        },
+        {
         "name": "blue-cracked",
+        "family": "blues",
         "sx": "0",
         "sy": "0",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        }
+        ],
+    "light-greens": [
+        {
         "name": "light-green",
+        "family": "light-greens",
         "sx": "0",
         "sy": "130",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        },
+        {
         "name": "light-green-cracked",
+        "family": "light-greens",
         "sx": "0",
         "sy": "260",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        }
+        ],
+    "purples": [
+        {
         "name": "purple",
+        "family": "purples",
         "sx": "0",
         "sy": "390",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        },
+        {
         "name": "purple-cracked",
+        "family": "purples",
         "sx": "0",
         "sy": "520",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        }
+        ],
+    "reds": [
+        {
         "name": "red",
+        "family": "reds",
         "sx": "772",
         "sy": "260",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        },
+        {
         "name": "red-cracked",
+        "family": "reds",
         "sx": "772",
         "sy": "130",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        }
+    ],
+    "oranges": [
+        {
         "name": "orange",
+        "family": "oranges",
         "sx": "772",
         "sy": "0",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        },
+        {
         "name": "orange-cracked",
+        "family": "oranges",
         "sx": "772",
         "sy": "650",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        }
+    ],
+    "light-blues": [
+        {
         "name": "light-blue",
+        "family": "light-blues",
         "sx": "386",
         "sy": "650",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        },
+        {
         "name": "light-blue-cracked",
+        "family": "light-blues",
         "sx": "386",
         "sy": "520",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        }
+    ],
+    "yellows": [
+        {
         "name": "yellow",
+        "family": "yellows",
         "sx": "386",
         "sy": "390",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        },
+        {
         "name": "yellow-cracked",
+        "family": "yellows",
         "sx": "386",
         "sy": "260",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        }
+    ],
+    "dark-greens": [
+        {
         "name": "dark-green",
+        "family": "dark-greens",
         "sx": "386",
         "sy": "130",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        },
+        {
         "name": "dark-green-cracked",
+        "family": "dark-greens",
         "sx": "386",
         "sy": "0",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        }
+    ],
+    "greys": [
+        {
         "name": "grey",
+        "family": "greys",
         "sx": "772",
         "sy": "520",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        },
+        {
         "name": "grey-cracked",
+        "family": "greys",
         "sx": "0",
         "sy": "650",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        }
+    ],
+    "browns": [
+        {
         "name": "brown",
+        "family": "browns",
         "sx": "386",
         "sy": "780",
         "sw": "384",
         "sh": "128"
-    },
-    {
+        },
+        {
         "name": "brown-cracked",
+        "family": "browns",
         "sx": "0",
         "sy": "780",
         "sw": "384",
         "sh": "128"
-    },
+        }
+    ],
+}
+const otherSpriteCoords = [
     {
         "name": "21-Breakout-Tiles.png",
         "sx": "1533",
@@ -445,11 +492,22 @@ let brickCoords = [
     }
 ]
 
+document.addEventListener("DOMContentLoaded", function() {
+    brickSetup();
+    drawBricks();
+    drawBall();
+    drawElectricPaddle();
+})
+let startButton = document.getElementById("start");
+let resetButton = document.getElementById("reset");
+startButton.addEventListener("click", start)
+resetButton.addEventListener("click", setup)
+
 document.addEventListener("keydown", (event) => {
     if (event.key == "ArrowRight") {
-        paddleX += 20;
+        paddleX += paddleSpeed;
     } else if (event.key == "ArrowLeft") {
-        paddleX -= 20;
+        paddleX -= paddleSpeed;
     }
 })
 canvas.addEventListener("touchstart", (event) => {
@@ -472,7 +530,7 @@ spriteSheet.onload = () => {
 
 
 class Brick {
-    constructor(sx, sy, sw, sh, dx, dy, dw, dh, state) {
+    constructor(sx, sy, sw, sh, dx, dy, dw, dh, state, family) {
         this.sx = Number(sx),
         this.sy = Number(sy),
         this.sw = Number(sw),
@@ -481,17 +539,22 @@ class Brick {
         this.dy = dy,
         this.dw = dw,
         this.dh = dh,
-        this.state = state
+        this.state = state,
+        this.family = family
     };
 };
 
-let brickNum = 20;
+let brickColorFamilies = Object.keys(brickCoords);
 //for (i = 11; i < (canvasWidth/brick_W)+11; i++){
-for (j = 0; j < 5; j++) {
-    for (i = 0; i < (canvasWidth / brick_W); i++) {
-        bricks.push(new Brick(brickCoords[0].sx, brickCoords[0].sy, brickCoords[0].sw, brickCoords[0].sh, 0 + i * 100, 0 + 50 * j, 100, 50, 'whole'));
+function brickSetup() {
+    for (j = 0; j < 5; j++) {
+        for (i = 0; i < (canvasWidth / brick_W); i++) {
+            const brickString = brickColorFamilies[Math.floor(Math.random() * brickColorFamilies.length)];
+            let brickArr = brickCoords[brickString];
+        bricks.push(new Brick(brickArr[0].sx, brickArr[0].sy, brickArr[0].sw, brickArr[0].sh, 0 + i * 100, 0 + 50 * j, 100, 50, 'whole',brickArr[0].family));
+        }
     }
-};
+}
 
 function drawBricks() {
     for (k = 0; k < bricks.length; k++) {
@@ -500,15 +563,15 @@ function drawBricks() {
 };
 
 let lastTimeStamp = 0;
-let m = 49
-let dw = (brickCoords[m].sw / 2000) * 1000;
-let sw = (brickCoords[m].sh / 1500) * 600
+let m = 29;
+let dw = (otherSpriteCoords[m].sw / 2000) * 1000;
+let sw = (otherSpriteCoords[m].sh / 1500) * 600
 function drawElectricPaddle() {
-    ctx.drawImage(spriteSheet, brickCoords[m].sx, brickCoords[m].sy, brickCoords[m].sw, brickCoords[m].sh, paddleX, paddleY, dw, sw);
+    ctx.drawImage(spriteSheet, otherSpriteCoords[m].sx, otherSpriteCoords[m].sy, otherSpriteCoords[m].sw, otherSpriteCoords[m].sh, paddleX, paddleY, dw, sw);
     if (Date.now() - lastTimeStamp >= 100) {
         lastTimeStamp = Date.now();
-        if (m == 51) {
-            m = 49;
+        if (m == 31) {
+            m = 29;
         } else {
             m++
         }
@@ -528,17 +591,34 @@ function checkCollission() {
         ;
     };
     for (let i = 0; i < bricks.length; i++) {
-        if ((ballX + (ballW / 2)) >= bricks[i].dx && (ballX + (ballW/2)) <= (bricks[i].dx + bricks[i].dw) && (ballY + ballH) >= bricks[i].dy && ballY <= (bricks[i].dy + bricks[i].dh)) {
-            if (bricks[i].state === 'cracked') {
-                bricks.splice(i, 1)
-            } else {
-                const crackedBrick = new Brick(brickCoords[1].sx, brickCoords[1].sy, brickCoords[1].sw, brickCoords[1].sh, bricks[i].dx, bricks[i].dy, bricks[i].dw, bricks[i].dh, 'cracked');
-                bricks[i] = crackedBrick;
-                ctx.drawImage(spriteSheet, bricks[i].sx, bricks[i].sy, bricks[i].sw, bricks[i].sh, bricks[i].dx, bricks[i].dy, bricks[i].dw, bricks[i].dh);
+        if ((ballX + ballW / 2) >= bricks[i].dx && ballX <= (bricks[i].dx + bricks[i].dw)) {
+            if ((ballY + ballH) >= bricks[i].dy && ballY <= (bricks[i].dy + bricks[i].dh)) {
+                if (bricks[i].state === 'cracked') {
+                    bricks.splice(i, 1)
+                } else {
+                    const crackedBrick = new Brick(brickCoords[bricks[i].family][1].sx, brickCoords[bricks[i].family][1].sy, brickCoords[bricks[i].family][1].sw, brickCoords[bricks[i].family][1].sh, bricks[i].dx, bricks[i].dy, bricks[i].dw, bricks[i].dh, 'cracked', brickCoords[bricks[i].family][1].family);
+                    bricks[i] = crackedBrick;
+                    ctx.drawImage(spriteSheet, bricks[i].sx, bricks[i].sy, bricks[i].sw, bricks[i].sh, bricks[i].dx, bricks[i].dy, bricks[i].dw, bricks[i].dh);
+                }
+                ballDY = -ballDY;
+                playerScore += 10;
+                break;
+            } 
+        
+        } else if ((ballY + ballH / 2) >= bricks[i].dy && (ballY + ballH / 2) <= (bricks[i].dy + bricks[i].dh)){
+            if ((ballX + ballW) >= bricks[i].dx && ballX <= (bricks[i].dx + bricks[i].dw)) {
+                if (bricks[i].state === 'cracked') {
+                    bricks.splice(i, 1)
+                } else {
+                    const crackedBrick = new Brick(brickCoords[bricks[i].family][1].sx, brickCoords[bricks[i].family][1].sy, brickCoords[bricks[i].family][1].sw, brickCoords[bricks[i].family][1].sh, bricks[i].dx, bricks[i].dy, bricks[i].dw, bricks[i].dh, 'cracked', brickCoords[bricks[i].family][1].family);
+                    bricks[i] = crackedBrick;
+                    ctx.drawImage(spriteSheet, bricks[i].sx, bricks[i].sy, bricks[i].sw, bricks[i].sh, bricks[i].dx, bricks[i].dy, bricks[i].dw, bricks[i].dh);
+                }
+                ballDX = -ballDX;
+                playerScore += 10;
+                break;
             }
-            ballDY = -ballDY;
-            break;
-        };
+        }
     }
 }
 
@@ -546,18 +626,40 @@ function drawBall() {
     checkCollission();
     ballY += ballDY;
     ballX += ballDX;
-    let ball = brickCoords.filter(b => b.name == "ball")[0]
+    let ball = otherSpriteCoords.filter(sprite => sprite.name == "ball")[0]
     ctx.drawImage(spriteSheet, ball.sx, ball.sy, ball.sw, ball.sh, ballX, ballY, 20, 20);
 };
 
 
+
+function start() {
+    animate();
+};
+
 function animate() {
-    ctx.clearRect(0, 0, 1200, 600)
+    ctx.clearRect(0, 0, 1200, 600);
     drawBricks();
     drawElectricPaddle();
     drawBall();
-    requestAnimationFrame(animate)
-};
+    animateId = requestAnimationFrame(animate);
+}
 
+function setup() {
+    cancelAnimationFrame(animateId);
+    ctx.clearRect(0, 0, 1200, 600);
+    paddleX = 350;
+    paddleY = 550;
+    ballX = 370;
+    ballY = 550;
+    ballDX = 5;
+    ballDY = 5;
+    bricks = [];
+    brickSetup();
+    drawBricks();
+    drawBall();
+    drawElectricPaddle();
+}
 
-animate();
+setInterval(function() {
+    console.log(playerScore), 5000
+})
