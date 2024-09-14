@@ -3,11 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <style>
+        #main {
+            display: flex;
+        }
+        
+        #buttonDiv {
+            margin-left:  500px;
+        }
+        #start {
+            width: 100px;
+            background-color: darkgray;
+        }
+
+        #reset {
+            width: 100px;
+        }
+        
+    </style>
     <title>BrickBreaker </title>
 </head>
 <body>
+    <div id="main">
     <canvas id="mycanvas" style="width: 1200px; height: 600px;background-color: black;"></canvas>
+    
+    </div>
+    <div id="buttonDiv">
+        <button id="start" onclick="animate()">START</button>
+        <button id="reset" onclick="setup()">RESET</button>
+        </div>
 </body>
-<script rel="text/javascript" src="script.js"></script>
+<script rel="text/javascript" src="script2.js"></script>
 </html>
