@@ -1,37 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        #main {
-            display: flex;
-        }
-        
-        #buttonDiv {
-            margin-left:  500px;
-        }
-        #start {
-            width: 100px;
-            background-color: darkgray;
-        }
-
-        #reset {
-            width: 100px;
-        }
-        
-    </style>
+    <link rel="stylesheet" href="style.css">
     <title>BrickBreaker </title>
 </head>
+
 <body>
     <div id="main">
-    <canvas id="mycanvas" style="width: 1200px; height: 600px;background-color: black;"></canvas>
-    
+        <canvas id="mycanvas" style="width: 1200px; height: 600px;background-color: black;"></canvas>
     </div>
+    <button id="muteButton">Mute</button>
+    <audio id="backgroundMusic" src="./SoundEffects/BackgroundMusic.mp3"></audio>
+    <audio id="paddleCollisionSoundEffect" src="./SoundEffects/PaddleBounce.wav"></audio>
+    <audio id="brickCollisionSoundEffect" src="./SoundEffects/BrickBreak.mp3"></audio>
     <div id="buttonDiv">
         <button id="start" onclick="animate()">START</button>
         <button id="reset" onclick="setup()">RESET</button>
-        </div>
+    </div>
 </body>
 <script rel="text/javascript" src="script.js"></script>
+
 </html>

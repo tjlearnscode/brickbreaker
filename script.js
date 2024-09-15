@@ -22,182 +22,182 @@ let bricks = [];
 let brickCoords = {
     "blues": [
         {
-        "name": "blue",
-        "family": "blues",
-        "sx": "772",
-        "sy": "390",
-        "sw": "384",
-        "sh": "128"
+            "name": "blue",
+            "family": "blues",
+            "sx": "772",
+            "sy": "390",
+            "sw": "384",
+            "sh": "128"
         },
         {
-        "name": "blue-cracked",
-        "family": "blues",
-        "sx": "0",
-        "sy": "0",
-        "sw": "384",
-        "sh": "128"
+            "name": "blue-cracked",
+            "family": "blues",
+            "sx": "0",
+            "sy": "0",
+            "sw": "384",
+            "sh": "128"
         }
-        ],
+    ],
     "light-greens": [
         {
-        "name": "light-green",
-        "family": "light-greens",
-        "sx": "0",
-        "sy": "130",
-        "sw": "384",
-        "sh": "128"
+            "name": "light-green",
+            "family": "light-greens",
+            "sx": "0",
+            "sy": "130",
+            "sw": "384",
+            "sh": "128"
         },
         {
-        "name": "light-green-cracked",
-        "family": "light-greens",
-        "sx": "0",
-        "sy": "260",
-        "sw": "384",
-        "sh": "128"
+            "name": "light-green-cracked",
+            "family": "light-greens",
+            "sx": "0",
+            "sy": "260",
+            "sw": "384",
+            "sh": "128"
         }
-        ],
+    ],
     "purples": [
         {
-        "name": "purple",
-        "family": "purples",
-        "sx": "0",
-        "sy": "390",
-        "sw": "384",
-        "sh": "128"
+            "name": "purple",
+            "family": "purples",
+            "sx": "0",
+            "sy": "390",
+            "sw": "384",
+            "sh": "128"
         },
         {
-        "name": "purple-cracked",
-        "family": "purples",
-        "sx": "0",
-        "sy": "520",
-        "sw": "384",
-        "sh": "128"
+            "name": "purple-cracked",
+            "family": "purples",
+            "sx": "0",
+            "sy": "520",
+            "sw": "384",
+            "sh": "128"
         }
-        ],
+    ],
     "reds": [
         {
-        "name": "red",
-        "family": "reds",
-        "sx": "772",
-        "sy": "260",
-        "sw": "384",
-        "sh": "128"
+            "name": "red",
+            "family": "reds",
+            "sx": "772",
+            "sy": "260",
+            "sw": "384",
+            "sh": "128"
         },
         {
-        "name": "red-cracked",
-        "family": "reds",
-        "sx": "772",
-        "sy": "130",
-        "sw": "384",
-        "sh": "128"
+            "name": "red-cracked",
+            "family": "reds",
+            "sx": "772",
+            "sy": "130",
+            "sw": "384",
+            "sh": "128"
         }
     ],
     "oranges": [
         {
-        "name": "orange",
-        "family": "oranges",
-        "sx": "772",
-        "sy": "0",
-        "sw": "384",
-        "sh": "128"
+            "name": "orange",
+            "family": "oranges",
+            "sx": "772",
+            "sy": "0",
+            "sw": "384",
+            "sh": "128"
         },
         {
-        "name": "orange-cracked",
-        "family": "oranges",
-        "sx": "772",
-        "sy": "650",
-        "sw": "384",
-        "sh": "128"
+            "name": "orange-cracked",
+            "family": "oranges",
+            "sx": "772",
+            "sy": "650",
+            "sw": "384",
+            "sh": "128"
         }
     ],
     "light-blues": [
         {
-        "name": "light-blue",
-        "family": "light-blues",
-        "sx": "386",
-        "sy": "650",
-        "sw": "384",
-        "sh": "128"
+            "name": "light-blue",
+            "family": "light-blues",
+            "sx": "386",
+            "sy": "650",
+            "sw": "384",
+            "sh": "128"
         },
         {
-        "name": "light-blue-cracked",
-        "family": "light-blues",
-        "sx": "386",
-        "sy": "520",
-        "sw": "384",
-        "sh": "128"
+            "name": "light-blue-cracked",
+            "family": "light-blues",
+            "sx": "386",
+            "sy": "520",
+            "sw": "384",
+            "sh": "128"
         }
     ],
     "yellows": [
         {
-        "name": "yellow",
-        "family": "yellows",
-        "sx": "386",
-        "sy": "390",
-        "sw": "384",
-        "sh": "128"
+            "name": "yellow",
+            "family": "yellows",
+            "sx": "386",
+            "sy": "390",
+            "sw": "384",
+            "sh": "128"
         },
         {
-        "name": "yellow-cracked",
-        "family": "yellows",
-        "sx": "386",
-        "sy": "260",
-        "sw": "384",
-        "sh": "128"
+            "name": "yellow-cracked",
+            "family": "yellows",
+            "sx": "386",
+            "sy": "260",
+            "sw": "384",
+            "sh": "128"
         }
     ],
     "dark-greens": [
         {
-        "name": "dark-green",
-        "family": "dark-greens",
-        "sx": "386",
-        "sy": "130",
-        "sw": "384",
-        "sh": "128"
+            "name": "dark-green",
+            "family": "dark-greens",
+            "sx": "386",
+            "sy": "130",
+            "sw": "384",
+            "sh": "128"
         },
         {
-        "name": "dark-green-cracked",
-        "family": "dark-greens",
-        "sx": "386",
-        "sy": "0",
-        "sw": "384",
-        "sh": "128"
+            "name": "dark-green-cracked",
+            "family": "dark-greens",
+            "sx": "386",
+            "sy": "0",
+            "sw": "384",
+            "sh": "128"
         }
     ],
     "greys": [
         {
-        "name": "grey",
-        "family": "greys",
-        "sx": "772",
-        "sy": "520",
-        "sw": "384",
-        "sh": "128"
+            "name": "grey",
+            "family": "greys",
+            "sx": "772",
+            "sy": "520",
+            "sw": "384",
+            "sh": "128"
         },
         {
-        "name": "grey-cracked",
-        "family": "greys",
-        "sx": "0",
-        "sy": "650",
-        "sw": "384",
-        "sh": "128"
+            "name": "grey-cracked",
+            "family": "greys",
+            "sx": "0",
+            "sy": "650",
+            "sw": "384",
+            "sh": "128"
         }
     ],
     "browns": [
         {
-        "name": "brown",
-        "family": "browns",
-        "sx": "386",
-        "sy": "780",
-        "sw": "384",
-        "sh": "128"
+            "name": "brown",
+            "family": "browns",
+            "sx": "386",
+            "sy": "780",
+            "sw": "384",
+            "sh": "128"
         },
         {
-        "name": "brown-cracked",
-        "family": "browns",
-        "sx": "0",
-        "sy": "780",
-        "sw": "384",
-        "sh": "128"
+            "name": "brown-cracked",
+            "family": "browns",
+            "sx": "0",
+            "sy": "780",
+            "sw": "384",
+            "sh": "128"
         }
     ],
 }
@@ -492,7 +492,7 @@ const otherSpriteCoords = [
     }
 ]
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     brickSetup();
     drawBricks();
     drawBall();
@@ -519,6 +519,34 @@ canvas.addEventListener("touchmove", (event) => {
     reviousTouchX = event.touches[0].clientX;
 });
 
+// Get the audio element and mute button
+const backgroundMusic = document.getElementById('backgroundMusic');
+const paddleCollisionSoundEffect = document.getElementById('paddleCollisionSoundEffect');
+const brickCollisionSoundEffect = document.getElementById('brickCollisionSoundEffect');
+const muteButton = document.getElementById('muteButton');
+
+// Play the music continuously when it ends
+backgroundMusic.addEventListener('ended', function () {
+    this.currentTime = 0;
+    this.play();
+});
+
+backgroundMusic.volume = 0.1;
+
+muteButton.addEventListener('click', function () {
+    if (backgroundMusic.muted) {
+        backgroundMusic.muted = false;
+        paddleCollisionSoundEffect.muted = false;
+        brickCollisionSoundEffect.muted = false;
+        muteButton.textContent = 'Mute';
+    } else {
+        backgroundMusic.muted = true;
+        paddleCollisionSoundEffect.muted = true;
+        brickCollisionSoundEffect.muted = true;
+        muteButton.textContent = 'Unmute';
+    }
+});
+
 const spriteSheet = new Image();
 spriteSheet.src = 'Breakout_Tile_Free.png'
 spriteSheet.onload = () => {
@@ -532,15 +560,15 @@ spriteSheet.onload = () => {
 class Brick {
     constructor(sx, sy, sw, sh, dx, dy, dw, dh, state, family) {
         this.sx = Number(sx),
-        this.sy = Number(sy),
-        this.sw = Number(sw),
-        this.sh = Number(sh),
-        this.dx = dx,
-        this.dy = dy,
-        this.dw = dw,
-        this.dh = dh,
-        this.state = state,
-        this.family = family
+            this.sy = Number(sy),
+            this.sw = Number(sw),
+            this.sh = Number(sh),
+            this.dx = dx,
+            this.dy = dy,
+            this.dw = dw,
+            this.dh = dh,
+            this.state = state,
+            this.family = family
     };
 };
 
@@ -551,7 +579,7 @@ function brickSetup() {
         for (i = 0; i < (canvasWidth / brick_W); i++) {
             const brickString = brickColorFamilies[Math.floor(Math.random() * brickColorFamilies.length)];
             let brickArr = brickCoords[brickString];
-        bricks.push(new Brick(brickArr[0].sx, brickArr[0].sy, brickArr[0].sw, brickArr[0].sh, 0 + i * 100, 0 + 50 * j, 100, 50, 'whole',brickArr[0].family));
+            bricks.push(new Brick(brickArr[0].sx, brickArr[0].sy, brickArr[0].sw, brickArr[0].sh, 0 + i * 100, 0 + 50 * j, 100, 50, 'whole', brickArr[0].family));
         }
     }
 }
@@ -579,6 +607,11 @@ function drawElectricPaddle() {
 };
 
 function checkCollission() {
+    if ((paddleX + 243 > ballX) && (paddleX < ballX) && (paddleY === (ballY + ballH))) {
+        console.log(paddleY, ballY + ballH)
+        paddleCollisionSoundEffect.play();
+    }
+
     if (ballX + ballW >= canvasWidth || ballX <= 0) {
         ballDX = -ballDX
     }
@@ -602,10 +635,11 @@ function checkCollission() {
                 }
                 ballDY = -ballDY;
                 playerScore += 10;
+                brickCollisionSoundEffect.play();
                 break;
-            } 
-        
-        } else if ((ballY + ballH / 2) >= bricks[i].dy && (ballY + ballH / 2) <= (bricks[i].dy + bricks[i].dh)){
+            }
+
+        } else if ((ballY + ballH / 2) >= bricks[i].dy && (ballY + ballH / 2) <= (bricks[i].dy + bricks[i].dh)) {
             if ((ballX + ballW) >= bricks[i].dx && ballX <= (bricks[i].dx + bricks[i].dw)) {
                 if (bricks[i].state === 'cracked') {
                     bricks.splice(i, 1)
@@ -616,6 +650,7 @@ function checkCollission() {
                 }
                 ballDX = -ballDX;
                 playerScore += 10;
+                brickCollisionSoundEffect.play();
                 break;
             }
         }
@@ -633,6 +668,7 @@ function drawBall() {
 
 
 function start() {
+    backgroundMusic.play();
     animate();
 };
 
@@ -660,6 +696,6 @@ function setup() {
     drawElectricPaddle();
 }
 
-setInterval(function() {
+setInterval(function () {
     console.log(playerScore), 5000
 })
