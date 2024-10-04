@@ -6,7 +6,7 @@
     margin-left: 500px;
 }
 
-#start {
+#start, #reset, #moveLeft, #moveRight{
     width: 100px;
     padding: 10px 20px;
     font-size: 16px;
@@ -22,17 +22,6 @@
     background-color: #0056b3;
 }
 
-#reset {
-    width: 100px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-}
 
 #reset:hover {
     background-color: #0056b3;
@@ -54,4 +43,3 @@
 #muteButton:hover {
     background-color: #0056b3;
 }
-
