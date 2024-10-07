@@ -1,54 +1,37 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
-
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="style.css">
-
-    <title>BrickBreaker </title>
-
+    <title>BrickBreaker</title>
 </head>
 
-
-
 <body>
-
     <div id="main">
-
-        <canvas id="mycanvas" style="width: 1200px; height: 600px;background-color: black;"></canvas>
-
+        <canvas id="mycanvas" style="width: 1200px; height: 600px; background-color: black;"></canvas>
     </div>
 
     <button id="muteButton">Mute</button>
 
     <span>Lives: <span id="lives"></span></span>
-    <audio id="backgroundMusic" src="./SoundEffects/SoundEffects_BackgroundMusic.mp3"></audio>
-
-    <audio id="paddleCollisionSoundEffect" src="./SoundEffects/SoundEffects_PaddleBounce.wav"></audio>
-
-    <audio id="brickCollisionSoundEffect" src="./SoundEffects/SoundEffects_BrickBreak.mp3"></audio>
+    
+    <audio id="backgroundMusic" src="./SoundEffects/BackgroundMusic.mp3"></audio>
+    <audio id="paddleCollisionSoundEffect" src="./SoundEffects/PaddleBounce.wav"></audio>
+    <audio id="brickCollisionSoundEffect" src="./SoundEffects/BrickBreak.mp3"></audio>
 
     <div id="buttonDiv">
-
         <button id="start" onclick="animate()">START</button>
-
-        <button id="reset" onclick="setup()">RESET</button>
-
-        <button id="moveLeft" onclick="movePaddleLeft()"><</button>
-        <button id="moveRight" onclick="movePaddleRight()">></button>
+        <button id="reset" onclick="reset()">RESET</button>
+        <button id="moveLeft" onclick="movePaddleLeft()">Left</button>
+        <button id="moveRight" onclick="movePaddleRight()">Right</button>
     </div>
 
+
+    <script type="module" src="script.js"></script>
+    <script type="module" src="brickCoords.js"></script>
+    <script type="module" src="otherSpriteCoords.js"></script>
 </body>
-
-<script rel="text/javascript" src="script.js"></script>
-
-
 
 </html>

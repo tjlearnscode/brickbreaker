@@ -1,7 +1,7 @@
 //updated code to show different colored bricks instead of just blue
 
-
-
+import { brickCoords } from "./brickCoords.js";
+import { otherSpriteCoords } from "./otherSpriteCoords.js";
 const canvas = document.getElementById('mycanvas');
 
 const ctx = canvas.getContext('2d');
@@ -49,951 +49,6 @@ const brick_H = 50;
 let animateId;
 
 let bricks = [];
-
-let brickCoords = {
-
-    "blues": [
-
-        {
-
-            "name": "blue",
-
-            "family": "blues",
-
-            "sx": "772",
-
-            "sy": "390",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        },
-
-        {
-
-            "name": "blue-cracked",
-
-            "family": "blues",
-
-            "sx": "0",
-
-            "sy": "0",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        }
-
-    ],
-
-    "light-greens": [
-
-        {
-
-            "name": "light-green",
-
-            "family": "light-greens",
-
-            "sx": "0",
-
-            "sy": "130",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        },
-
-        {
-
-            "name": "light-green-cracked",
-
-            "family": "light-greens",
-
-            "sx": "0",
-
-            "sy": "260",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        }
-
-    ],
-
-    "purples": [
-
-        {
-
-            "name": "purple",
-
-            "family": "purples",
-
-            "sx": "0",
-
-            "sy": "390",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        },
-
-        {
-
-            "name": "purple-cracked",
-
-            "family": "purples",
-
-            "sx": "0",
-
-            "sy": "520",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        }
-
-    ],
-
-    "reds": [
-
-        {
-
-            "name": "red",
-
-            "family": "reds",
-
-            "sx": "772",
-
-            "sy": "260",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        },
-
-        {
-
-            "name": "red-cracked",
-
-            "family": "reds",
-
-            "sx": "772",
-
-            "sy": "130",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        }
-
-    ],
-
-    "oranges": [
-
-        {
-
-            "name": "orange",
-
-            "family": "oranges",
-
-            "sx": "772",
-
-            "sy": "0",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        },
-
-        {
-
-            "name": "orange-cracked",
-
-            "family": "oranges",
-
-            "sx": "772",
-
-            "sy": "650",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        }
-
-    ],
-
-    "light-blues": [
-
-        {
-
-            "name": "light-blue",
-
-            "family": "light-blues",
-
-            "sx": "386",
-
-            "sy": "650",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        },
-
-        {
-
-            "name": "light-blue-cracked",
-
-            "family": "light-blues",
-
-            "sx": "386",
-
-            "sy": "520",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        }
-
-    ],
-
-    "yellows": [
-
-        {
-
-            "name": "yellow",
-
-            "family": "yellows",
-
-            "sx": "386",
-
-            "sy": "390",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        },
-
-        {
-
-            "name": "yellow-cracked",
-
-            "family": "yellows",
-
-            "sx": "386",
-
-            "sy": "260",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        }
-
-    ],
-
-    "dark-greens": [
-
-        {
-
-            "name": "dark-green",
-
-            "family": "dark-greens",
-
-            "sx": "386",
-
-            "sy": "130",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        },
-
-        {
-
-            "name": "dark-green-cracked",
-
-            "family": "dark-greens",
-
-            "sx": "386",
-
-            "sy": "0",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        }
-
-    ],
-
-    "greys": [
-
-        {
-
-            "name": "grey",
-
-            "family": "greys",
-
-            "sx": "772",
-
-            "sy": "520",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        },
-
-        {
-
-            "name": "grey-cracked",
-
-            "family": "greys",
-
-            "sx": "0",
-
-            "sy": "650",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        }
-
-    ],
-
-    "browns": [
-
-        {
-
-            "name": "brown",
-
-            "family": "browns",
-
-            "sx": "386",
-
-            "sy": "780",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        },
-
-        {
-
-            "name": "brown-cracked",
-
-            "family": "browns",
-
-            "sx": "0",
-
-            "sy": "780",
-
-            "sw": "384",
-
-            "sh": "128"
-
-        }
-
-    ],
-
-}
-
-const otherSpriteCoords = [
-
-    {
-
-        "name": "21-Breakout-Tiles.png",
-
-        "sx": "1533",
-
-        "sy": "392",
-
-        "sw": "128",
-
-        "sh": "128"
-
-    },
-
-    {
-
-        "name": "22-Breakout-Tiles.png",
-
-        "sx": "1403",
-
-        "sy": "132",
-
-        "sw": "128",
-
-        "sh": "128"
-
-    },
-
-    {
-
-        "name": "23-Breakout-Tiles.png",
-
-        "sx": "1403",
-
-        "sy": "262",
-
-        "sw": "128",
-
-        "sh": "128"
-
-    },
-
-    {
-
-        "name": "24-Breakout-Tiles.png",
-
-        "sx": "1403",
-
-        "sy": "392",
-
-        "sw": "128",
-
-        "sh": "128"
-
-    },
-
-    {
-
-        "name": "25-Breakout-Tiles.png",
-
-        "sx": "1403",
-
-        "sy": "522",
-
-        "sw": "128",
-
-        "sh": "128"
-
-    },
-
-    {
-
-        "name": "26-Breakout-Tiles.png",
-
-        "sx": "1507",
-
-        "sy": "652",
-
-        "sw": "128",
-
-        "sh": "128"
-
-    },
-
-    {
-
-        "name": "27-Breakout-Tiles.png",
-
-        "sx": "1533",
-
-        "sy": "132",
-
-        "sw": "128",
-
-        "sh": "128"
-
-    },
-
-    {
-
-        "name": "28-Breakout-Tiles.png",
-
-        "sx": "1533",
-
-        "sy": "262",
-
-        "sw": "128",
-
-        "sh": "128"
-
-    },
-
-    {
-
-        "name": "29-Breakout-Tiles.png",
-
-        "sx": "1574",
-
-        "sy": "782",
-
-        "sw": "128",
-
-        "sh": "128"
-
-    },
-
-    {
-
-        "name": "30-Breakout-Tiles.png",
-
-        "sx": "1533",
-
-        "sy": "522",
-
-        "sw": "128",
-
-        "sh": "128"
-
-    },
-
-    {
-
-        "name": "31-Breakout-Tiles.png",
-
-        "sx": "1403",
-
-        "sy": "66",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "32-Breakout-Tiles.png",
-
-        "sx": "1158",
-
-        "sy": "0",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "33-Breakout-Tiles.png",
-
-        "sx": "1084",
-
-        "sy": "912",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "34-Breakout-Tiles.png",
-
-        "sx": "1084",
-
-        "sy": "846",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "35-Breakout-Tiles.png",
-
-        "sx": "1017",
-
-        "sy": "780",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "36-Breakout-Tiles.png",
-
-        "sx": "839",
-
-        "sy": "912",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "37-Breakout-Tiles.png",
-
-        "sx": "1329",
-
-        "sy": "858",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "38-Breakout-Tiles.png",
-
-        "sx": "1329",
-
-        "sy": "792",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "39-Breakout-Tiles.png",
-
-        "sx": "1403",
-
-        "sy": "0",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "40-Breakout-Tiles.png",
-
-        "sx": "1329",
-
-        "sy": "924",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "41-Breakout-Tiles.png",
-
-        "sx": "1158",
-
-        "sy": "66",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "42-Breakout-Tiles.png",
-
-        "sx": "349",
-
-        "sy": "910",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "paddle",
-
-        "sx": "594",
-
-        "sy": "910",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "fireball",
-
-        "sx": "1262",
-
-        "sy": "726",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "upgrade-fireball",
-
-        "sx": "1158",
-
-        "sy": "132",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "upgrade-slim",
-
-        "sx": "1158",
-
-        "sy": "198",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "upgrade-width",
-
-        "sx": "1158",
-
-        "sy": "264",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "upgrade-laser",
-
-        "sx": "1158",
-
-        "sy": "330",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "upgrade-none",
-
-        "sx": "1158",
-
-        "sy": "396",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "paddle-electric1",
-
-        "sx": "1158",
-
-        "sy": "462",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "paddle-electric2",
-
-        "sx": "1158",
-
-        "sy": "528",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "paddle-electric3",
-
-        "sx": "1158",
-
-        "sy": "594",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "paddle-laser1",
-
-        "sx": "1158",
-
-        "sy": "660",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "paddle-laser2",
-
-        "sx": "839",
-
-        "sy": "846",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "paddle-laser3",
-
-        "sx": "772",
-
-        "sy": "780",
-
-        "sw": "243",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "paddle-large",
-
-        "sx": "0",
-
-        "sy": "910",
-
-        "sw": "347",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "small-paddle",
-
-        "sx": "1574",
-
-        "sy": "912",
-
-        "sw": "115",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "ball",
-
-        "sx": "1403",
-
-        "sy": "652",
-
-        "sw": "64",
-
-        "sh": "64"
-
-    },
-
-    {
-
-        "name": "star",
-
-        "sx": "772",
-
-        "sy": "846",
-
-        "sw": "64",
-
-        "sh": "61"
-
-    },
-
-    {
-
-        "name": "heart",
-
-        "sx": "1637",
-
-        "sy": "652",
-
-        "sw": "64",
-
-        "sh": "58"
-
-    },
-
-    {
-
-        "name": "laser-bullet",
-
-
-
-        "sx": "0",
-
-        "sy": "990",
-
-        "sw": "10",
-
-        "sh": "21"
-
-    }
-
-]
-
 
 let lastTimeStamp = 0;
 
@@ -1043,7 +98,7 @@ let resetButton = document.getElementById("reset");
 let moveLeftButton = document.getElementById("moveLeft");
 let moveRightButton = document.getElementById("moveRight");
 startButton.addEventListener("click", start);
-resetButton.addEventListener("click", setup);
+resetButton.addEventListener("click", reset);
 moveLeftButton.addEventListener("click", moveLeft);
 moveRightButton.addEventListener("click", moveRight);
 
@@ -1056,12 +111,12 @@ document.addEventListener("keydown", (event) => {
     } else if (event.key == "ArrowLeft") {
         moveLeft();
     }
-else {}
+    else { }
 })
 
 canvas.addEventListener("touchstart", (event) => {
 
-    if(paddleX > 0 && paddleX + paddleW < canvasWidth) {
+    if (paddleX > 0 && paddleX + paddleW < canvasWidth) {
         previousTouchX = event.touches[0].clientX;
 
     }
@@ -1070,8 +125,8 @@ canvas.addEventListener("touchstart", (event) => {
 
 
 canvas.addEventListener("touchmove", (event) => {
-        paddleX += event.touches[0].clientX - previousTouchX;
-        previousTouchX = event.touches[0].clientX;
+    paddleX += event.touches[0].clientX - previousTouchX;
+    previousTouchX = event.touches[0].clientX;
 });
 
 
@@ -1147,16 +202,16 @@ spriteSheet.onload = () => {
 
 
 function moveLeft() {
-    if(paddleX > 0){
-            paddleX -= paddleSpeed;
-        } else {}
+    if (paddleX > 0) {
+        paddleX -= paddleSpeed;
+    } else { }
 }
 
 function moveRight() {
 
-    if(paddleX + paddleW < canvasWidth){
-            paddleX += paddleSpeed;
-        } else{}
+    if (paddleX + paddleW < canvasWidth) {
+        paddleX += paddleSpeed;
+    } else { }
 
 }
 
@@ -1199,9 +254,9 @@ let brickColorFamilies = Object.keys(brickCoords);
 
 function brickSetup() {
 
-    for (j = 0; j < 5; j++) {
+    for (let j = 0; j < 5; j++) {
 
-        for (i = 0; i < (canvasWidth / brick_W); i++) {
+        for (let i = 0; i < (canvasWidth / brick_W); i++) {
 
             const brickString = brickColorFamilies[Math.floor(Math.random() * brickColorFamilies.length)];
 
@@ -1215,20 +270,15 @@ function brickSetup() {
 
 }
 
-
-
 function drawBricks() {
 
-    for (k = 0; k < bricks.length; k++) {
+    for (let k = 0; k < bricks.length; k++) {
 
         ctx.drawImage(spriteSheet, bricks[k].sx, bricks[k].sy, bricks[k].sw, bricks[k].sh, bricks[k].dx, bricks[k].dy, bricks[k].dw, bricks[k].dh);
 
     };
 
 };
-
-
-
 
 function checkCollission() {
 
@@ -1246,12 +296,15 @@ function checkCollission() {
     }
 
     if (ballY + ballH >= canvasHeight) {
-        lives -= 1;
-        document.getElementById("lives").innerText = lives;
-        setup();
-        console.log(lives)
-    } 
-    
+        if (lives === 1) {
+            reset();
+        } else {
+            lives -= 1;
+            document.getElementById("lives").innerText = lives;
+            setup();
+        }
+    }
+
     if (ballY <= 0) {
 
         ballDY = -ballDY;
@@ -1259,7 +312,7 @@ function checkCollission() {
     }
 
     if ((ballX + ballW / 2) >= paddleX && (ballX + ballW / 2) <= paddleX + paddleW && ballY + ballH === paddleY) {
-            ballDY = -ballDY;
+        ballDY = -ballDY;
     };
 
     for (let i = 0; i < bricks.length; i++) {
@@ -1328,8 +381,6 @@ function checkCollission() {
 
 }
 
-
-
 function drawBall() {
 
     checkCollission();
@@ -1349,20 +400,15 @@ function showLives() {
     document.getElementById("lives").innerText = lives;
 }
 
-
-
-
-
-
 function start() {
 
     backgroundMusic.play();
 
     animate();
+    ballDX = 5;
+    ballDY = 5;
 
 };
-
-
 
 function animate() {
 
@@ -1378,27 +424,39 @@ function animate() {
 
 }
 
-
-
 function setup() {
-
     cancelAnimationFrame(animateId);
 
     ctx.clearRect(0, 0, 1200, 600);
 
     paddleX = paddleXOrigin;
-
     paddleY = paddleYOrigin;
-
     ballX = ballXOrigin;
     ballY = ballYOrigin;
-    ballDX = 5;
+    ballDX = 0;
+    ballDY = 0;
 
-    ballDY = 5;
     drawBricks();
     drawBall();
-
     drawElectricPaddle();
-
 }
 
+function reset() {
+    lives = 3
+    document.getElementById("lives").innerText = lives;
+
+    ctx.clearRect(0, 0, 1200, 600);
+    cancelAnimationFrame(animateId);
+
+    paddleX = paddleXOrigin;
+    paddleY = paddleYOrigin;
+    ballX = ballXOrigin;
+    ballY = ballYOrigin;
+    ballDX = 0;
+    ballDY = 0;
+
+    brickSetup();
+    drawBricks();
+    drawElectricPaddle();
+    drawBall();
+}
