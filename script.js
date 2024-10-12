@@ -317,7 +317,7 @@ function checkCollission() {
 
     for (let i = 0; i < bricks.length; i++) {
 
-        if ((ballX + ballW / 2) >= bricks[i].dx && ballX <= (bricks[i].dx + bricks[i].dw)) {
+        if ((ballX + ballW / 2) >= bricks[i].dx && (ballX + ballW / 2) <= (bricks[i].dx + bricks[i].dw)) {
 
             if ((ballY + ballH) >= bricks[i].dy && ballY <= (bricks[i].dy + bricks[i].dh)) {
 
