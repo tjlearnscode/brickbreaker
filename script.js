@@ -34,7 +34,7 @@ let ballY = 530;
 
 let ballDX = 5;
 
-let ballDY = 5;
+let ballDY = -5;
 
 const ballW = 20;
 
