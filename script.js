@@ -22,7 +22,7 @@ let paddleW = 150;
 let paddleH = 50;
 let playerScore = 0;
 
-const paddleSpeed = 30;
+const paddleSpeed = 100;
 
 let ballXOrigin = 550;
 
@@ -34,7 +34,7 @@ let ballY = 530;
 
 let ballDX = 5;
 
-let ballDY = -5;
+let ballDY = 5;
 
 const ballW = 20;
 
@@ -89,6 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     drawBall();
     document.getElementById("lives").innerText = lives
+    document.getElementById("scores").innerText = playerScore;
 })
 
 let startButton = document.getElementById("start");
@@ -338,6 +339,7 @@ function checkCollission() {
                 ballDY = -ballDY;
 
                 playerScore += 10;
+                document.getElementById("scores").innerText = playerScore;
 
                 brickCollisionSoundEffect.play();
 
@@ -368,6 +370,7 @@ function checkCollission() {
                 ballDX = -ballDX;
 
                 playerScore += 10;
+                document.getElementById("scores").innerText = playerScore;
 
                 brickCollisionSoundEffect.play();
 
@@ -388,7 +391,7 @@ function drawBall() {
     ballY += ballDY;
 
     ballX += ballDX;
-
+    console.log(ballX, ballY, ballDX, ballDY)
     let ball = otherSpriteCoords.filter(sprite => sprite.name == "ball")[0]
 
     ctx.drawImage(spriteSheet, ball.sx, ball.sy, ball.sw, ball.sh, ballX, ballY, 20, 20);
@@ -454,6 +457,8 @@ function reset() {
     ballY = ballYOrigin;
     ballDX = 0;
     ballDY = 0;
+    playerScore = 0;
+    document.getElementById("scores").innerText = playerScore;
 
     brickSetup();
     drawBricks();

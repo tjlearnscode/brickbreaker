@@ -3,7 +3,7 @@
 }
 
 #buttonDiv {
-    margin-left: 500px;
+    margin-left: 17vw;
 }
 
 #start, #reset, #moveLeft, #moveRight{
@@ -15,7 +15,6 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
 }
 
 #start:hover {
@@ -27,6 +26,16 @@
     background-color: #0056b3;
 }
 
+#header {
+    display: flex;
+    /* justify-content: space-between;  */
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #222; 
+    color: white;
+    width: 1160px;
+}
+
 #muteButton {
     padding: 10px 20px;
     font-size: 16px;
@@ -35,11 +44,67 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    display: block; 
-    margin-top: 10px;
     transition: background-color 0.3s ease;
 }
 
 #muteButton:hover {
     background-color: #0056b3;
+}
+
+#lives-container {
+    margin-right: 1vw;
+    margin-left: 6vw;
+    display: inline-flex;
+    align-items: center;
+    background-color: #28a745;
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+
+#lives-container .label {
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+#lives {
+    font-size: 24px;
+    color: #ffc107;
+    font-weight: bold;
+}
+
+#lives-container::before {
+    content: "❤️";
+    font-size: 24px;
+    margin-right: 10px;
+    color: #ff6f61;
+}
+
+#scores-container {
+    display: inline-flex;
+    align-items: center;
+    background-color: #28a745;
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+
+#scores-container .label {
+    font-size: 18px;
+    color: white;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+#scores {
+    font-size: 24px;
+    color: #ffc107;
+    font-weight: bold;
+}
+
+#scores-container::before {
+    content: "💰";
+    font-size: 24px;
+    margin-right: 10px;
+    color: #ff6f61;
 }
