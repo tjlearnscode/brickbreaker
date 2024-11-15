@@ -6,7 +6,7 @@ const starryBG = new Image();
 starryBG.src = 'starryBG.png';
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
-const canvasHeight = canvas.height = 600;
+const canvasHeight = canvas.height = 800;
 const canvasWidth = canvas.width = 1200;
 const brickWidth = 100;
 const brickHeight = 50;
@@ -37,7 +37,7 @@ const muteButton = document.getElementById('muteButton');
 class Player {
   constructor(x, y) {
     this.xOrigin = 520;
-    this.yOrigin = 550;
+    this.yOrigin = 750;
     this.x = x;
     this.y = y;
     this.width = 150;
@@ -151,12 +151,12 @@ function drawAllBricks(arr) {
 }
 
 function drawBackground(img) {
-  ctx.drawImage(img, 0, 0);
+  ctx.drawImage(img, 0, 0,canvasWidth,canvasHeight);
 }
 
 
 
-const player = new Player(520, 550);
+const player = new Player(520, 750);
 
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
