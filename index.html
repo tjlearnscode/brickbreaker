@@ -5,42 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>BrickBreaker</title>
+    <title>BrickBreaker </title>
 </head>
 
 <body>
     <div id="main">
-        <canvas id="mycanvas" style="width: 1200px; height: 600px; background-color: black;"></canvas>
+        <canvas id="mycanvas" style="width: 1200px; height: 600px;background-color: black;"></canvas>
     </div>
-
-    <div id="header">
-        <button id="muteButton">Mute</button>
-        <div id="buttonDiv">
-            <button id="start">START</button>
-            <button id="reset">RESET</button>
-            <button id="moveLeft">Left</button>
-            <button id="moveRight">Right</button>
-        </div>
-        <span id="lives-container">
-            <span class="label">Lives: </span>
-            <span id="lives"></span>
-        </span>
-        <span id="scores-container">
-            <span class="label">Scores: </span>
-            <span id="scores"></span>
-        </span>
+    <button id="muteButton">Mute</button>
+    <span>Lives: <span id="lives"></span></span>
+    <audio id="backgroundMusic" src="./soundeffects/SoundEffects_BackgroundMusic.mp3"></audio>
+    <audio id="paddleCollisionSoundEffect" src="./soundeffects/SoundEffects_PaddleBounce.wav"></audio>
+    <audio id="brickCollisionSoundEffect" src="./soundeffects/SoundEffects_BrickBreak.mp3"></audio>
+    <div id="buttonDiv">
+        <button id="start" onclick="animate()">START</button>
+        <button id="reset" onclick="setup()">RESET</button>
+        <button id="moveLeft" onclick="movePaddleLeft()"><</button>
+        <button id="moveRight" onclick="movePaddleRight()">></button>
     </div>
-    
-    <audio id="backgroundMusic" src="./SoundEffects/BackgroundMusic.mp3"></audio>
-    <audio id="paddleCollisionSoundEffect" src="./SoundEffects/PaddleBounce.wav"></audio>
-    <audio id="brickCollisionSoundEffect" src="./SoundEffects/BrickBreak.mp3"></audio>
-
-
-
-
-    <script type="module" src="script.js"></script>
-    <script type="module" src="brickCoords.js"></script>
-    <script type="module" src="otherSpriteCoords.js"></script>
 </body>
+<script rel="text/javascript" src="script.js"></script>
 
 </html>

@@ -113,7 +113,7 @@ export let otherSpriteCoords = [
 
     {
 
-        "name": "29-Breakout-Tiles.png",
+        "name": "unknown.png",
 
         "sx": "1574",
 
@@ -127,7 +127,7 @@ export let otherSpriteCoords = [
 
     {
 
-        "name": "30-Breakout-Tiles.png",
+        "name": "unknown.png",
 
         "sx": "1533",
 
@@ -141,7 +141,7 @@ export let otherSpriteCoords = [
 
     {
 
-        "name": "31-Breakout-Tiles.png",
+        "name": "plus50.png",
 
         "sx": "1403",
 
@@ -155,7 +155,7 @@ export let otherSpriteCoords = [
 
     {
 
-        "name": "32-Breakout-Tiles.png",
+        "name": "unknown.png",
 
         "sx": "1158",
 
@@ -169,7 +169,7 @@ export let otherSpriteCoords = [
 
     {
 
-        "name": "33-Breakout-Tiles.png",
+        "name": "laserPaddle2.png",
 
         "sx": "1084",
 
@@ -183,7 +183,7 @@ export let otherSpriteCoords = [
 
     {
 
-        "name": "34-Breakout-Tiles.png",
+        "name": "laserPaddle3.png",
 
         "sx": "1084",
 
@@ -407,7 +407,7 @@ export let otherSpriteCoords = [
 
     {
 
-        "name": "paddle-electric1",
+        "name": "electricPaddle1",
 
         "sx": "1158",
 
@@ -421,7 +421,7 @@ export let otherSpriteCoords = [
 
     {
 
-        "name": "paddle-electric2",
+        "name": "electricPaddle2",
 
         "sx": "1158",
 
@@ -435,7 +435,7 @@ export let otherSpriteCoords = [
 
     {
 
-        "name": "paddle-electric3",
+        "name": "electricPaddle3",
 
         "sx": "1158",
 
@@ -449,7 +449,7 @@ export let otherSpriteCoords = [
 
     {
 
-        "name": "paddle-laser1",
+        "name": "laserPaddle1",
 
         "sx": "1158",
 
@@ -463,7 +463,7 @@ export let otherSpriteCoords = [
 
     {
 
-        "name": "paddle-laser2",
+        "name": "laserPaddle2",
 
         "sx": "839",
 
@@ -477,7 +477,7 @@ export let otherSpriteCoords = [
 
     {
 
-        "name": "paddle-laser3",
+        "name": "laserPaddle3",
 
         "sx": "772",
 
@@ -576,3 +576,4 @@ export let otherSpriteCoords = [
     }
 
 ]
+
