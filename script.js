@@ -155,8 +155,50 @@ function drawBackground(img) {
 }
 
 
-
 const player = new Player(520, 750);
+
+class Ball {
+  constructor() {
+  this.ballCoords = {
+    "name": "ball",
+    "sx": "1403",
+    "sy": "652",
+    "sw": "64",
+    "sh": "64"
+  },
+  this.width = 25,
+  this.height = 25,
+  this.xOrigin = player.xOrigin + ((player.width-this.width) / 2),
+  this.yOrigin = player.yOrigin - this.height,
+  this.x = this.xOrigin,
+  this.y = this.yOrigin,
+  this.dx = 5,
+  this.dy = -5
+}
+
+  update() {
+    this.x += this.dx;
+    this.y += this.dy;
+    if(this.x + this.width >= canvasWidth) {
+      this.dx = -this.dx;
+    } else if (this.x <= 0) {
+      this.dx = -this.dx;
+    }
+
+    if (this.y <= 0) {
+      this.dy = -this.dy;
+    } else if (this.y + this.height >= canvasHeight) {
+      this.dy = -this.dy;
+    }
+    //this.y = Math.max(0, Math.min(this.y, canvasHeight - this.heith));
+  }
+
+  draw(ctx) {
+    ctx.drawImage(spriteSheet, this.ballCoords.sx, this.ballCoords.sy, this.ballCoords.sw, this.ballCoords.sh, this.x, this.y, this.width, this.height);
+  }
+}
+
+let ball = new Ball;
 
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
@@ -164,6 +206,8 @@ function gameLoop() {
   player.update();
   player.draw(ctx);
   drawAllBricks(bricksArr);
+  ball.update();
+  ball.draw(ctx);
   requestAnimationFrame(gameLoop);
 }
 
