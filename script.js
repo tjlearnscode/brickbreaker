@@ -109,6 +109,7 @@ class Brick {
     this.wholeCoords = this.brick[0],
     this.crackedCoords = this.brick[1],
     this.strength = 2,
+    this.hits = 0,
     this.width = brickWidth,
     this.height = brickHeight,
     this.destinationX = brickWidth * col,
@@ -168,6 +169,7 @@ class Ball {
   },
   this.width = 25,
   this.height = 25,
+  this.radus = 12.5,
   this.xOrigin = player.xOrigin + ((player.width-this.width) / 2),
   this.yOrigin = player.yOrigin - this.height,
   this.x = this.xOrigin,
@@ -190,15 +192,46 @@ class Ball {
     } else if (this.y + this.height >= canvasHeight) {
       this.dy = -this.dy;
     }
-    //this.y = Math.max(0, Math.min(this.y, canvasHeight - this.heith));
-  }
+  }  
 
   draw(ctx) {
     ctx.drawImage(spriteSheet, this.ballCoords.sx, this.ballCoords.sy, this.ballCoords.sw, this.ballCoords.sh, this.x, this.y, this.width, this.height);
   }
 }
 
+
 let ball = new Ball;
+
+function checkBrickCollision() {
+  //   const bricksleftRight = bricksArr.filter((brick) => brick.destinationX >= ball.x - 100 & brick.destinationX <= ball.x + 100 );
+  //   const bricksAboveBelow = bricksleftRight.filter((brick) => brick.destinationY >= ball.y - 100 && brick.destinationY <= ball.y + 100);
+  //   console.log(bricksAboveBelow);
+  //   for(let i = 0; i < bricksAboveBelow.length; i++) {
+  //     const bricksArrayIndex = bricksArr.findIndex((b) => b.destinationX == bricksAboveBelow[i].destinationX & b.destinationY == bricksAboveBelow[i].destinationY);
+  //     console.log(bricksArrayIndex);
+  //     if (ball.x >= bricksAboveBelow[i].destinationX & ball.x + ball.width <= bricksAboveBelow[i].destinationX+ bricksAboveBelow[i].width) {
+  //       if (ball.y >= bricksAboveBelow[i].destinationY & ball.y + ball.height <= bricksAboveBelow[i].destinationY + bricksAboveBelow[i].height) {
+  //         ball.dy = -ball.dy;
+  //         bricksAboveBelow[i].destinationY = -bricksAboveBelow[i].destinationY;
+  //         bricksAboveBelow[i].strength --;
+  //         bricksArr[bricksArrayIndex] = bricksAboveBelow[i];
+
+  //       }
+  //     }
+  // }
+
+  for(let i = 0; i < bricksArr.length; i++) {
+      if (ball.x >= bricksArr[i].destinationX & ball.x + ball.width <= bricksArr[i].destinationX+ bricksArr[i].width) {
+        if (ball.y >= bricksArr[i].destinationY & ball.y + ball.height <= bricksArr[i].destinationY + bricksArr[i].height) {
+          ball.dy = -ball.dy;
+          bricksArr[i].destinationY = -bricksArr[i].destinationY;
+          bricksArr[i].strength --;
+          bricksArr[i] = bricksArr[i];
+          }
+        }
+    }
+}  
+
 
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
@@ -206,6 +239,7 @@ function gameLoop() {
   player.update();
   player.draw(ctx);
   drawAllBricks(bricksArr);
+  checkBrickCollision();
   ball.update();
   ball.draw(ctx);
   requestAnimationFrame(gameLoop);
