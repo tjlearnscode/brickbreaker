@@ -10,6 +10,7 @@ const canvasHeight = canvas.height = 800;
 const canvasWidth = canvas.width = 1200;
 const brickWidth = 100;
 const brickHeight = 50;
+let brickCount = 0;
 let startButton = document.getElementById("start");
 let resetButton = document.getElementById("reset");
 let moveLeftButton = document.getElementById("moveLeft");
@@ -23,15 +24,22 @@ document.addEventListener('keydown', (event) => {player.handlePlayerKeyInput(eve
 document.addEventListener('touchstart', event => {player.handleTouchStart(event)});
 document.addEventListener('touchmove', event => {player.handleTouchMove(event)});
 document.addEventListener('mousemove', event => {player.handleMouseMove(event)});
+canvas.addEventListener('click', startBall);
+canvas.addEventListener('touchStart', startBall);
+document.addEventListener('keydown', (event) => {console.log(event.key);if (event.key == "Enter") {
+  startBall()
+}
+});
 
 //SOUND EFFECTS AND MUSIC
 const backgroundMusic = document.getElementById('backgroundMusic');
 backgroundMusic.volume = .2;
-canvas.addEventListener('DOMContentLoaded', backgroundMusic.play());
-
 const paddleCollisionSoundEffect = document.getElementById('paddleCollisionSoundEffect');
 const brickCollisionSoundEffect = document.getElementById('brickCollisionSoundEffect');
 const muteButton = document.getElementById('muteButton');
+
+//START BUTTON
+document.getElementById('start').addEventListener('click', gameLoop);
 
 
 class Player {
@@ -95,6 +103,12 @@ class Player {
     // Keep player within game boundaries
     this.x = Math.max(0, Math.min(this.x, canvasWidth - this.width));
   }
+
+  reset() {
+    this.x = this.xOrigin;
+    this.y= this.yOrigin;
+  }
+
   draw(ctx) {
     // Draw the player on the canvas
     ctx.drawImage(spriteSheet, this.imgCoords.sx, this.imgCoords.sy, this.imgCoords.sw, this.imgCoords.sh, this.x, this.y, this.width, this.height)
@@ -169,18 +183,19 @@ class Ball {
   },
   this.width = 25,
   this.height = 25,
-  this.radus = 12.5,
+  this.radius = 12.5,
   this.xOrigin = player.xOrigin + ((player.width-this.width) / 2),
   this.yOrigin = player.yOrigin - this.height,
   this.x = this.xOrigin,
   this.y = this.yOrigin,
-  this.dx = 5,
-  this.dy = -5
+  this.centerX = this.x + this.radius,
+  this.centerY = this.y + this.radius,
+  this.dx = 7,
+  this.dy = -7,
+  this.moving = false;
 }
 
   update() {
-    this.x += this.dx;
-    this.y += this.dy;
     if(this.x + this.width >= canvasWidth) {
       this.dx = -this.dx;
     } else if (this.x <= 0) {
@@ -190,9 +205,16 @@ class Ball {
     if (this.y <= 0) {
       this.dy = -this.dy;
     } else if (this.y + this.height >= canvasHeight) {
-      this.dy = -this.dy;
+      reset();
     }
-  }  
+
+    if (this.moving) {
+      this.x += this.dx;
+      this.y += this.dy;
+    } else {
+      this.x = player.x + (player.width/2 - this.radius);
+    }
+  }
 
   draw(ctx) {
     ctx.drawImage(spriteSheet, this.ballCoords.sx, this.ballCoords.sy, this.ballCoords.sw, this.ballCoords.sh, this.x, this.y, this.width, this.height);
@@ -203,48 +225,71 @@ class Ball {
 let ball = new Ball;
 
 function checkBrickCollision() {
-  //   const bricksleftRight = bricksArr.filter((brick) => brick.destinationX >= ball.x - 100 & brick.destinationX <= ball.x + 100 );
-  //   const bricksAboveBelow = bricksleftRight.filter((brick) => brick.destinationY >= ball.y - 100 && brick.destinationY <= ball.y + 100);
-  //   console.log(bricksAboveBelow);
-  //   for(let i = 0; i < bricksAboveBelow.length; i++) {
-  //     const bricksArrayIndex = bricksArr.findIndex((b) => b.destinationX == bricksAboveBelow[i].destinationX & b.destinationY == bricksAboveBelow[i].destinationY);
-  //     console.log(bricksArrayIndex);
-  //     if (ball.x >= bricksAboveBelow[i].destinationX & ball.x + ball.width <= bricksAboveBelow[i].destinationX+ bricksAboveBelow[i].width) {
-  //       if (ball.y >= bricksAboveBelow[i].destinationY & ball.y + ball.height <= bricksAboveBelow[i].destinationY + bricksAboveBelow[i].height) {
-  //         ball.dy = -ball.dy;
-  //         bricksAboveBelow[i].destinationY = -bricksAboveBelow[i].destinationY;
-  //         bricksAboveBelow[i].strength --;
-  //         bricksArr[bricksArrayIndex] = bricksAboveBelow[i];
 
-  //       }
-  //     }
-  // }
+    if (ball.x + ball.radius >= player.x && ball.x + ball.radius <= player.x + player.width && ball.y + ball.height === player.y) {
+    ball.dy = -ball.dy;
+    paddleCollisionSoundEffect.play();
+  }
+
 
   for(let i = 0; i < bricksArr.length; i++) {
-      if (ball.x >= bricksArr[i].destinationX & ball.x + ball.width <= bricksArr[i].destinationX+ bricksArr[i].width) {
-        if (ball.y >= bricksArr[i].destinationY & ball.y + ball.height <= bricksArr[i].destinationY + bricksArr[i].height) {
-          ball.dy = -ball.dy;
-          bricksArr[i].destinationY = -bricksArr[i].destinationY;
-          bricksArr[i].strength --;
-          bricksArr[i] = bricksArr[i];
+      if (ball.x + ball.radius >= bricksArr[i].destinationX & ball.x + ball.radius <= bricksArr[i].destinationX + bricksArr[i].width) {
+        if (ball.y + ball.height >= bricksArr[i].destinationY & ball.y <= bricksArr[i].destinationY + bricksArr[i].height) {
+          if (bricksArr[i].strength === 1) {
+            bricksArr.splice(i, 1)
+          } else {
+            bricksArr[i].strength --;
           }
-        }
+          brickCollisionSoundEffect.play();
+          countBricks();
+          ball.dy = -ball.dy;
+          }
+        } else if (ball.y + ball.radius >= bricksArr[i].destinationY & ball.y + ball.radius <= bricksArr[i].destinationY + bricksArr[i].height) {
+          if (ball.x + ball.width >= bricksArr[i].destinationX & ball.x <= bricksArr[i].destinationX + bricksArr[i].width) {
+            if (bricksArr[i].strength === 1) {
+              bricksArr.splice(i, 1)
+            } else {
+              bricksArr[i].strength --;
+            }
+            brickCollisionSoundEffect.play();
+            countBricks();
+            ball.dx = -ball.dx;
+            }
+          }
     }
-}  
+}
 
+function reset() {
+  ball.moving = false;
+  ball.x = ball.xOrigin;
+  ball.y = ball.yOrigin;
+  ball.dx = 7;
+  ball.dy = -7;
+  player.x = player.xOrigin;
+  player.y = player.yOrigin;
+}
+
+function startBall() {
+  ball.moving = true;
+}
+
+function countBricks() {
+  brickCount = bricksArr.length;
+  console.log(brickCount);
+}
 
 function gameLoop() {
+  backgroundMusic.play();
   ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
   drawBackground(starryBG);
   player.update();
   player.draw(ctx);
-  drawAllBricks(bricksArr);
   checkBrickCollision();
+  drawAllBricks(bricksArr);
   ball.update();
   ball.draw(ctx);
   requestAnimationFrame(gameLoop);
 }
 
-gameLoop(); 
 
 
