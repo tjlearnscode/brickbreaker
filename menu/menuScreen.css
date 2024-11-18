@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('arcade_background.jpeg') no-repeat center center/cover;
+    font-family: 'Press Start 2P';
+    color: white;
+}
+
+.menu-container {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 70px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.menu-title {
+    font-size: 3.0rem;
+    color: #8b32e9;
+    margin-bottom: 30px;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.menu-button {
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: #fff;
+    padding: 15px 20px;
+    border: 2px solid #8b32e9;
+    border-radius: 10px;
+    background: transparent;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px #8b32e9;
+}
+
+.menu-button:hover {
+    background: #8b32e9;
+    color: black;
+    text-shadow: none;
+}
