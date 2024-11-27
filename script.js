@@ -16,7 +16,7 @@ let startButton = document.getElementById("start");
 let resetButton = document.getElementById("reset");
 let moveLeftButton = document.getElementById("moveLeft");
 let moveRightButton = document.getElementById("moveRight");
-let levelNumber = 1;
+let levelNumber = 2;
 let level = levels.filter((e) => e.levelNumber === levelNumber;
 
 
