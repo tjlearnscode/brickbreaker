@@ -1,6 +1,6 @@
 import { brickCoords } from "./brickCoords.js";
 import { otherSpriteCoords } from "./otherSpriteCoords.js";
-import {levels} from ".levels.js";
+import {levels} from "./levels.js";
 const spriteSheet = new Image();
 spriteSheet.src = 'Breakout_Tile_Free.png';
 const starryBG = new Image();
