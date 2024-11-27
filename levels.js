@@ -1,4 +1,4 @@
-[
+export let levels = [
 {
   "levelNumber": 1,
   "brickColor": "blues"
