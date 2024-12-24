@@ -316,6 +316,7 @@ class Laser {
       } else {
         this.y -= 10
       }
+      this.draw();
   } else {}
 }
 }
@@ -331,7 +332,6 @@ function gameLoop() {
   checkBrickCollision();
   drawAllBricks(bricksArr);
   laser1.update();
-  laser1.draw();
   ball.update();
   ball.draw(ctx);
   requestAnimationFrame(gameLoop);
