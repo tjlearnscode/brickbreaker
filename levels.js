@@ -5,6 +5,6 @@ export let levels = [
 },
 {
   "levelNumber": 2,
-  "brickColor": "greens"
+  "brickColor": "light-greens"
 }
 ]
