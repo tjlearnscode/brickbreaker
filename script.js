@@ -12,12 +12,14 @@ const canvasWidth = canvas.width = 1200;
 const brickWidth = 100;
 const brickHeight = 50;
 let brickCount = 0;
+let points =0;
 let startButton = document.getElementById("start");
 let resetButton = document.getElementById("reset");
 let moveLeftButton = document.getElementById("moveLeft");
 let moveRightButton = document.getElementById("moveRight");
+let pointsContainer = document.getElementById("points");
 let levelNumber = 2;
-let level = levels.filter((e) => e.levelNumber === levelNumber;
+let level = levels.filter((e) => e.levelNumber === levelNumber)[0];
 
 
 //CONTROLLER EVENTS
@@ -111,12 +113,15 @@ class Player {
     this.y= this.yOrigin;
   }
 
+
   draw(ctx) {
     // Draw the player on the canvas
     ctx.drawImage(spriteSheet, this.imgCoords.sx, this.imgCoords.sy, this.imgCoords.sw, this.imgCoords.sh, this.x, this.y, this.width, this.height)
   }
   
 }
+
+let player = new Player(520, 750);
 
 class Brick {
   constructor(color, row, col){
@@ -172,7 +177,7 @@ function drawBackground(img) {
 }
 
 
-const player = new Player(520, 750);
+
 
 class Ball {
   constructor() {
@@ -195,6 +200,7 @@ class Ball {
   this.dx = 7,
   this.dy = -7,
   this.moving = false;
+  this.ms = 0;
 }
 
   update() {
@@ -213,6 +219,7 @@ class Ball {
     if (this.moving) {
       this.x += this.dx;
       this.y += this.dy;
+      this.ms += 1;
     } else {
       this.x = player.x + (player.width/2 - this.radius);
     }
@@ -228,21 +235,25 @@ let ball = new Ball;
 
 function checkBrickCollision() {
 
-    if (ball.x + ball.radius >= player.x && ball.x + ball.radius <= player.x + player.width && ball.y + ball.height === player.y) {
+    if (ball.ms > 5){
+      if (ball.x + ball.radius >= player.x && ball.x + ball.radius <= player.x + player.width && ball.y + ball.height === player.y) {
     ball.dy = -ball.dy;
     paddleCollisionSoundEffect.play();
-  }
+      } else {};
+  } else {};
 
 
   for(let i = 0; i < bricksArr.length; i++) {
       if (ball.x + ball.radius >= bricksArr[i].destinationX & ball.x + ball.radius <= bricksArr[i].destinationX + bricksArr[i].width) {
         if (ball.y + ball.height >= bricksArr[i].destinationY & ball.y <= bricksArr[i].destinationY + bricksArr[i].height) {
           if (bricksArr[i].strength === 1) {
-            bricksArr.splice(i, 1)
+            bricksArr.splice(i, 1);
           } else {
             bricksArr[i].strength --;
           }
           brickCollisionSoundEffect.play();
+          points += 2;
+          pointsContainer.innerText = "Points: " + points;
           countBricks();
           ball.dy = -ball.dy;
           }
@@ -261,24 +272,55 @@ function checkBrickCollision() {
     }
 }
 
+
 function reset() {
-  ball.moving = false;
-  ball.x = ball.xOrigin;
-  ball.y = ball.yOrigin;
-  ball.dx = 7;
-  ball.dy = -7;
+  // ball.moving = false;
+  // ball.x = ball.xOrigin;
+  // ball.y = ball.yOrigin;
+  // ball.dx = 7;
+  // ball.dy = -7;
+  ball = new Ball;
   player.x = player.xOrigin;
   player.y = player.yOrigin;
 }
 
 function startBall() {
   ball.moving = true;
-}
+  }
+
 
 function countBricks() {
   brickCount = bricksArr.length;
   console.log(brickCount);
 }
+
+class Laser {
+  constructor(playerX, playerW, playerY ) {
+    this.x = playerX,
+    this.y = playerY,
+    this.sx = 0,
+    this.sy = 990,
+    this.sw = 10,
+    this.sh = 21,
+    this.laserOn = true
+  }
+
+  draw() {
+    ctx.drawImage(spriteSheet, this.sx, this.sy, this.sw, this.sh, this.x, this.y, 10, 21)
+  }
+  
+  update() {
+    if(this.laserOn) {
+      if(this.y === player.y) {
+        this.y -= 10;
+      } else {
+        this.y -= 10
+      }
+  } else {}
+}
+}
+
+let laser1 = new Laser(player.x, player.width, player.y);
 
 function gameLoop() {
   backgroundMusic.play();
@@ -288,6 +330,8 @@ function gameLoop() {
   player.draw(ctx);
   checkBrickCollision();
   drawAllBricks(bricksArr);
+  laser1.update();
+  laser1.draw();
   ball.update();
   ball.draw(ctx);
   requestAnimationFrame(gameLoop);
