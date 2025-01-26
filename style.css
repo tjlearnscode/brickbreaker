@@ -8,7 +8,7 @@
     margin-left: 500px;
 }
 
-#start, #reset, #moveLeft, #moveRight{
+#start, #pause, #reset, #moveLeft, #moveRight{
     width: 100px;
     padding: 10px 20px;
     font-size: 16px;
