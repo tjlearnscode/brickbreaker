@@ -1,51 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>BrickBreaker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrickBreaker - Menu</title>
+  <link rel="stylesheet" href="menuScreen.css">
 </head>
-
 <body>
-    <div id="main">
-        <canvas id="myCanvas" style="width: 1200px; height: 800px; background-color: black;"></canvas>
+  <div class="menu-container">
+    <div class="menu-title">BrickBreaker</div>
+    <div class="menu-buttons">
+      <a href="/game/gameScreen.html" class="menu-button">Start</a>
+      <a href="#" class="menu-button">Scoreboard</a>
+      <a href="#" class="menu-button">Rules</a>
     </div>
-
-    <div id="header">
-        <button id="muteButton">Mute</button>
-        <div id="buttonDiv">
-            <button id="start">START</button>
-            <button id="pause">PAUSE</button>
-            <button id="reset">RESET</button>
-            <button id="moveLeft">Left</button>
-            <button id="moveRight">Right</button>
-        </div>
-        <span id="lives-container">
-            <span class="label">Lives: </span>
-            <span id="lives"></span>
-        </span>
-        <span id="points-container">
-            <span class="label">Points: </span>
-            <span id="points"></span>
-        </span>
-        <span id="scores-container">
-            <span class="label">Scores: </span>
-            <span id="scores"></span>
-        </span>
-    </div>
-    
-    <audio id="backgroundMusic" src="./soundEffects/SoundEffects_BackgroundMusic.mp3"></audio>
-    <audio id="paddleCollisionSoundEffect" src="./soundEffects/SoundEffects_PaddleBounce.wav"></audio>
-    <audio id="brickCollisionSoundEffect" src="./soundEffects/SoundEffects_BrickBreak.mp3"></audio>
-
-
-
-
-    <script type="module" src="script.js"></script>
-    <script type="module" src="brickCoords.js"></script>
-    <script type="module" src="otherSpriteCoords.js"></script>
+  </div>
 </body>
-
 </html>
