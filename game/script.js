@@ -5,8 +5,6 @@ const spriteSheet = new Image();
 spriteSheet.src = "Breakout_Tile_Free.png";
 const starryBG = new Image();
 starryBG.src = "starryBG.png";
-const bossImg = new Image();
-bossImg.src = "boss.png";
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 const canvasHeight = (canvas.height = 800);
@@ -28,6 +26,9 @@ let isRunning = false;
 
 //CONTROLLER EVENTS
 let startX = 0;
+moveRightButton.addEventListener("click", (event) => {
+  console.log(lasers[0])
+})
 document.addEventListener("keyup", (event) => {
   if (event.key === "Control") {
     ctrlKeyDown = false;
@@ -40,7 +41,7 @@ document.addEventListener("keydown", (event) => {
     ctrlKeyDown = true;
   } else if (event.key === "Enter") {
     ball.moving = true;
-    console.log(ball);
+    console.log(lasers[0]);
   } else {
   }
   player.handleKeyInput(event.key);
@@ -359,7 +360,7 @@ class Ball {
 
 let ball = new Ball();
 
-function checkBrickCollision() {
+function checkBallCollision() {
   if (
     ball.x + ball.radius >= player.x &&
     ball.x + ball.radius <= player.x + player.width &&
@@ -404,17 +405,15 @@ function checkBrickCollision() {
         } else {
           if (bricksArr[i].strength === 1) {
             bricksArr.splice(i, 1);
-            if (bricksArr.length === 0) {
-              boss1.active = true;
-            }
           } else {
             bricksArr[i].strength--;
           }
           brickCollisionSoundEffect.load();
           brickCollisionSoundEffect.play();
           points += 2;
-          if (Number.isInteger(points / 50)) {
-            lasers.push(new Laser(player.x, player.width, player.y));
+          if (Number.isInteger(points / 10)) {
+            lasers.push(new Laser(player.x, player.y));
+            lasers.push(new Laser(player.x + player.width,player.y));
           }
           pointsContainer.innerText = "Points: " + points;
           countBricks();
@@ -435,17 +434,15 @@ function checkBrickCollision() {
         } else {
           if (bricksArr[i].strength === 1) {
             bricksArr.splice(i, 1);
-            if (bricksArr.length === 0) {
-              boss1.active = true;
-            }
           } else {
             bricksArr[i].strength--;
           }
           brickCollisionSoundEffect.load();
           brickCollisionSoundEffect.play();
           points += 2;
-          if (Number.isInteger(points / 50)) {
-            lasers.push(new Laser(player.x, player.width, player.y));
+          if (Number.isInteger(points / 10)) {
+            lasers.push(new Laser(player.x, player.y));
+            lasers.push(new Laser(player.x + player.width,player.y));
           }
           pointsContainer.innerText = "Points: " + points;
           countBricks();
@@ -463,32 +460,35 @@ function checkBrickCollision() {
   }
 }
 
-function checkBossCollision() {
-  if (
-    (ball.x + ball.radius >= boss1.x) &
-    (ball.x + ball.radius <= boss1.x + boss1.width)
-  ) {
-    if ((ball.y + ball.height >= 0) & (ball.y <= boss1.height)) {
-      boss1.strength--;
-      brickCollisionSoundEffect.play();
-      points += 2;
-      pointsContainer.innerText = "Points: " + points;
-      ball.dy = -ball.dy;
+function checkLaserCollision(){
+  for(let i = 0; i < lasers.length; i++){
+    if(lasers[i].y <0){
+      lasers[i].y = player.y;
+      lasers[i].x = player.x
     }
-  } else if (
-    (ball.y + ball.radius >= 0) &
-    (ball.y + ball.radius <= boss1.height)
-  ) {
-    if ((ball.x + ball.width >= boss1.x) & (ball.x <= boss1.x + boss1.width)) {
-      boss1.strength--;
-      brickCollisionSoundEffect.play();
-      points += 2;
-      pointsContainer.innerText = "Points: " + points;
-      boss1.dx = -boss1.dx;
-      ball.dx = -ball.dx;
+
+    for(let j = 0; j < bricksArr.length; j++){
+      if(lasers[i].y <= bricksArr[j].destinationY + bricksArr[j].height && lasers[i].y >= bricksArr[j].destinationY && lasers[i].x >= bricksArr[j].destinationX && lasers[i].x + lasers[i].width <= bricksArr[j].destinationX + bricksArr[j].width){
+        lasers[i].y = player.y
+        lasers[i].x = player.x;
+        if (bricksArr[j].colorClass === "greys") {
+          //add grey brick collission sound
+        } else if (bricksArr[j].strength === 1) {
+            bricksArr.splice(j, 1);
+          } else {
+            bricksArr[j].strength--;
+          }
+          brickCollisionSoundEffect.load();
+          brickCollisionSoundEffect.play();
+          points += 2;
+
+          pointsContainer.innerText = "Points: " + points;
+          countBricks();
+      }
     }
   }
 }
+
 
 function pause() {
   isRunning = !isRunning;
@@ -513,14 +513,14 @@ function countBricks() {
 }
 
 class Laser {
-  constructor(playerX, playerW, playerY) {
-    (this.x = playerX),
-      (this.y = playerY),
-      (this.sx = 0),
-      (this.sy = 990),
-      (this.sw = 10),
-      (this.sh = 21),
-      (this.laserOn = true);
+  constructor(x,y) {
+    (this.x = x),
+      (this.y = y),
+      this.width = 10,
+      this.sx = 0,
+      this.sy = 990,
+      this.sw = 10,
+      this.sh = 21
   }
 
   draw() {
@@ -538,69 +538,34 @@ class Laser {
   }
 
   update() {
-    if (this.laserOn) {
-      if (this.y === player.y) {
-        this.y -= 10;
-      } else {
-        this.y -= 10;
-      }
-      this.draw();
-    } else {
-    }
-  }
+      this.y -= 10;
 }
-
-let laser1 = new Laser(player.x, player.width, player.y);
+}
 
 function disableStart() {
   document.getElementById("start").disabled = true;
 }
 
-class Boss {
-  constructor() {
-    (this.xOrigin = 400),
-      (this.yOrigin = 0),
-      (this.x = 400),
-      (this.width = 400),
-      (this.height = 150),
-      (this.dx = 5),
-      (this.strength = 3),
-      (this.active = false);
-  }
-
-  update() {
-    if (this.x <= 0 || this.x + this.width >= canvasWidth) {
-      this.dx = -this.dx;
-    }
-    this.x += this.dx;
-    ctx.drawImage(bossImg, this.x, this.yOrigin, this.width, this.height);
-  }
-}
-
-const boss1 = new Boss();
 
 function gameLoop() {
   if (isRunning) {
     backgroundMusic.play();
     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
     drawBackground(starryBG);
-    if (boss1.active) {
       player.update();
       player.draw(ctx);
-      checkBossCollision();
-      checkBrickCollision();
-      boss1.update();
+      for(let i = 0; i< lasers.length; i++){
+        lasers[i].update();
+        lasers[i].draw();
+      }
+      if(lasers.length > 0){
+        checkLaserCollision()
+      }
       ball.update();
-      ball.draw(ctx);
-      requestAnimationFrame(gameLoop);
-    } else {
-      player.update();
-      player.draw(ctx);
-      checkBrickCollision();
+      checkBallCollision();
       drawAllBricks(bricksArr);
-      ball.update();
       ball.draw(ctx);
       requestAnimationFrame(gameLoop);
-    }
   }
 }
+
