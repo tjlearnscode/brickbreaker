@@ -18,7 +18,7 @@ let resetButton = document.getElementById("reset");
 let moveLeftButton = document.getElementById("moveLeft");
 let moveRightButton = document.getElementById("moveRight");
 let pointsContainer = document.getElementById("points");
-let levelNumber = 2;
+let levelNumber = 3;
 let level = levels.find((e) => e.levelNumber === levelNumber);
 let lasers = [];
 let ctrlKeyDown = false;
@@ -208,7 +208,7 @@ let bricksArr = [];
 
 for (let i = 0; i < 5; i++) {
   for (let j = 0; j < 10; j++) {
-    if (level.grayIndexes.includes(i * 10 + j)) {
+    if (level.greyIndexes.includes(i * 10 + j)) {
       const brick = new Brick("greys", i, j);
       bricksArr.push(brick);
     } else {
