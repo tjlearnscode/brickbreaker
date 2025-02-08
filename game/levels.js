@@ -1,7 +1,8 @@
 export let levels = [
 {
   "levelNumber": 1,
-  "brickColor": "blues"
+  "brickColor": "blues",
+  "greyIndexes": []
 },
 {
   "levelNumber": 2,
@@ -11,6 +12,6 @@ export let levels = [
 {
   "levelNumber": 3,
   "brickColor": "purples",
-  "greyIndexes": [22,23,26,27,32,33,36,37]
+  "greyIndexes": [41,42,14,15,47,48]
 }
 ]

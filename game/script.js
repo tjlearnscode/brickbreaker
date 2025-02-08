@@ -11,6 +11,7 @@ const canvasHeight = (canvas.height = 800);
 const canvasWidth = (canvas.width = 1200);
 const brickWidth = 120;
 const brickHeight = 50;
+let bricksArr = [];
 let brickCount = 0;
 let points = 0;
 let startButton = document.getElementById("start");
@@ -18,7 +19,7 @@ let resetButton = document.getElementById("reset");
 let moveLeftButton = document.getElementById("moveLeft");
 let moveRightButton = document.getElementById("moveRight");
 let pointsContainer = document.getElementById("points");
-let levelNumber = 3;
+let levelNumber = 1;
 let level = levels.find((e) => e.levelNumber === levelNumber);
 let lasers = [];
 let ctrlKeyDown = false;
@@ -204,8 +205,9 @@ class Brick {
   }
 }
 
-let bricksArr = [];
 
+function setupBricks(){
+level = levels.find((e) => e.levelNumber === levelNumber);
 for (let i = 0; i < 5; i++) {
   for (let j = 0; j < 10; j++) {
     if (level.greyIndexes.includes(i * 10 + j)) {
@@ -217,6 +219,10 @@ for (let i = 0; i < 5; i++) {
     }
   }
 }
+brickCount = bricksArr.length;
+}
+
+setupBricks();
 
 function drawBrick(brick) {
   ctx.drawImage(
@@ -411,10 +417,6 @@ function checkBallCollision() {
           brickCollisionSoundEffect.load();
           brickCollisionSoundEffect.play();
           points += 2;
-          if (Number.isInteger(points / 10)) {
-            lasers.push(new Laser(player.x, player.y));
-            lasers.push(new Laser(player.x + player.width,player.y));
-          }
           pointsContainer.innerText = "Points: " + points;
           countBricks();
         }
@@ -440,10 +442,6 @@ function checkBallCollision() {
           brickCollisionSoundEffect.load();
           brickCollisionSoundEffect.play();
           points += 2;
-          if (Number.isInteger(points / 10)) {
-            lasers.push(new Laser(player.x, player.y));
-            lasers.push(new Laser(player.x + player.width,player.y));
-          }
           pointsContainer.innerText = "Points: " + points;
           countBricks();
         }
@@ -469,8 +467,6 @@ function checkLaserCollision(){
 
     for(let j = 0; j < bricksArr.length; j++){
       if(lasers[i].y <= bricksArr[j].destinationY + bricksArr[j].height && lasers[i].y >= bricksArr[j].destinationY && lasers[i].x >= bricksArr[j].destinationX && lasers[i].x + lasers[i].width <= bricksArr[j].destinationX + bricksArr[j].width){
-        lasers[i].y = player.y
-        lasers[i].x = player.x;
         if (bricksArr[j].colorClass === "greys") {
           //add grey brick collission sound
         } else if (bricksArr[j].strength === 1) {
@@ -481,9 +477,9 @@ function checkLaserCollision(){
           brickCollisionSoundEffect.load();
           brickCollisionSoundEffect.play();
           points += 2;
-
           pointsContainer.innerText = "Points: " + points;
           countBricks();
+          lasers.splice(i,1);
       }
     }
   }
@@ -510,17 +506,34 @@ function startBall() {
 
 function countBricks() {
   brickCount = bricksArr.length;
+  if(brickCount === 0){
+    player.reset();
+    levelNumber++; 
+    setupBricks();
+  } else {
+  }
 }
 
 class Laser {
-  constructor(x,y) {
+  constructor(x,y,pos) {
+    this.pos = pos,
     (this.x = x),
       (this.y = y),
       this.width = 10,
       this.sx = 0,
       this.sy = 990,
       this.sw = 10,
-      this.sh = 21
+      this.sh = 21,
+      this.fireCount = 0
+  }
+
+  reset() {
+    this.y = player.destinationY;
+    if(this.pos == 'left'){
+      this.x = player.destinationX;
+    } else {
+      this.x = player.destinationX + player.width;
+    }
   }
 
   draw() {
@@ -542,9 +555,12 @@ class Laser {
 }
 }
 
+
 function disableStart() {
   document.getElementById("start").disabled = true;
 }
+
+
 
 
 function gameLoop() {
@@ -554,13 +570,13 @@ function gameLoop() {
     drawBackground(starryBG);
       player.update();
       player.draw(ctx);
-      for(let i = 0; i< lasers.length; i++){
-        lasers[i].update();
-        lasers[i].draw();
-      }
       if(lasers.length > 0){
+        for(let i = 0; i< lasers.length; i++){
+          lasers[i].update();
+          lasers[i].draw();
+        }
         checkLaserCollision()
-      }
+      } else {};
       ball.update();
       checkBallCollision();
       drawAllBricks(bricksArr);
